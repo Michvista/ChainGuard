@@ -2,6 +2,8 @@
 	import type { CustodyEntry } from '$lib/api/types';
 	import { actionLabel, formatDateTime } from '$lib/api/format';
 	import EmptyState from './EmptyState.svelte';
+	import UiIcon from './UiIcon.svelte';
+	import type { IconName } from './icons';
 
 	type Props = {
 		entries?: CustodyEntry[];
@@ -22,20 +24,20 @@
 		return nodeStyles[action] ?? 'border-amber-300 bg-amber-100 text-amber-600';
 	}
 
-	function entryIcon(action: string): string {
+	function entryIcon(action: string): IconName {
 		switch (action) {
 			case 'INTAKE':
 				return 'archive';
 			case 'VERIFY':
-				return 'fact_check';
+				return 'verify';
 			case 'TRANSFER':
-				return 'swap_horiz';
+				return 'transfer';
 			case 'EXPORT':
-				return 'file_download';
+				return 'download';
 			case 'ACCESS':
-				return 'visibility';
+				return 'eye';
 			default:
-				return 'event_note';
+				return 'note';
 		}
 	}
 </script>
@@ -45,7 +47,7 @@
 		<p class="py-6 text-center text-sm text-slate-500">Loading custody history…</p>
 	{:else if entries.length === 0}
 		<EmptyState
-			icon="account_tree"
+			icon="timeline"
 			title="No custody events recorded"
 			text="This evidence has no custody history yet."
 		/>
@@ -61,7 +63,7 @@
 							entry.action
 						)}"
 					>
-						<span class="material-symbols-outlined text-[16px]">{entryIcon(entry.action)}</span>
+						<UiIcon name={entryIcon(entry.action)} size={16} />
 					</div>
 					<div class="min-w-0 flex-1">
 						<div class="flex flex-col gap-1 sm:flex-row sm:items-baseline sm:justify-between">
@@ -75,7 +77,7 @@
 									<span
 										class="inline-flex items-center gap-1 rounded-md border border-amber-200 bg-amber-50 px-2 py-0.5 text-[11px] font-semibold text-amber-700"
 									>
-										<span class="material-symbols-outlined text-[13px]">wifi_off</span>
+										<UiIcon name="wifiOff" size={13} />
 										Offline entry
 									</span>
 								{/if}

@@ -1,5 +1,6 @@
 <script lang="ts">
 	import { formatBytes } from '$lib/api/format';
+	import UiIcon from './UiIcon.svelte';
 
 	type Props = {
 		accept?: string;
@@ -78,7 +79,7 @@
 			<div
 				class="flex h-12 w-12 items-center justify-center rounded-full bg-emerald-100 text-emerald-600"
 			>
-				<span class="material-symbols-outlined text-[26px]">check_circle</span>
+				<UiIcon name="check" size={26} />
 			</div>
 			<div class="min-w-0">
 				<p
@@ -104,7 +105,7 @@
 			<div
 				class="flex h-12 w-12 items-center justify-center rounded-full bg-slate-100 text-slate-500"
 			>
-				<span class="material-symbols-outlined text-[26px]">upload_file</span>
+				<UiIcon name="upload" size={26} />
 			</div>
 			<div>
 				<p class="text-sm font-semibold text-slate-800">Drag &amp; drop the evidence file here</p>
@@ -122,7 +123,7 @@
 
 {#if error}
 	<p class="mt-2 flex items-center gap-1.5 text-sm text-rose-600">
-		<span class="material-symbols-outlined text-[16px]">error</span>
+		<UiIcon name="alert" size={16} />
 		{error}
 	</p>
 {/if}

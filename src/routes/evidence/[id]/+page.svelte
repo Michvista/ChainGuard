@@ -18,6 +18,7 @@
 	import ReportView from '$lib/components/ReportView.svelte';
 	import StatusBadge from '$lib/components/StatusBadge.svelte';
 	import VerifyPanel from '$lib/components/VerifyPanel.svelte';
+	import UiIcon from '$lib/components/UiIcon.svelte';
 
 	const id = $derived(page.params.id as string);
 
@@ -102,7 +103,7 @@
 		href="/evidence"
 		class="mb-6 inline-flex items-center gap-1.5 text-sm font-medium text-slate-600 transition-colors hover:text-slate-900"
 	>
-		<span class="material-symbols-outlined text-[18px]">arrow_back</span>
+		<UiIcon name="arrowBack" size={18} />
 		Back to evidence
 	</a>
 
@@ -148,7 +149,7 @@
 		<!-- Overview -->
 		<section class="mt-6 rounded-xl border border-slate-200 bg-white p-6">
 			<div class="mb-4 flex items-center gap-2">
-				<span class="material-symbols-outlined text-[20px] text-slate-500">description</span>
+				<UiIcon name="file" size={20} class="text-slate-500" />
 				<h2 class="font-display text-base font-bold text-slate-900">Evidence overview</h2>
 			</div>
 			<dl class="grid grid-cols-1 gap-x-6 gap-y-4 sm:grid-cols-2">
@@ -198,7 +199,7 @@
 		<!-- Integrity summary -->
 		<section class="mt-6 rounded-xl border border-slate-200 bg-white p-6">
 			<div class="mb-4 flex items-center gap-2">
-				<span class="material-symbols-outlined text-[20px] text-slate-500">verified_user</span>
+				<UiIcon name="verified" size={20} class="text-slate-500" />
 				<h2 class="font-display text-base font-bold text-slate-900">Integrity status</h2>
 			</div>
 			{#if verifyResult}
@@ -238,7 +239,7 @@
 			<p
 				class="mt-4 flex items-start gap-2 rounded-md border border-slate-200 bg-slate-50 p-3 text-sm text-slate-600"
 			>
-				<span class="material-symbols-outlined mt-0.5 text-[16px]">info</span>
+				<UiIcon name="info" size={16} class="mt-0.5" />
 				<span>
 					Integrity means the current file matches the registered file. It does not prove that the
 					depicted event happened or that the content is truthful.
@@ -249,7 +250,7 @@
 		<!-- Fingerprint -->
 		<section class="mt-6 rounded-xl border border-slate-200 bg-white p-6">
 			<div class="mb-4 flex items-center gap-2">
-				<span class="material-symbols-outlined text-[20px] text-slate-500">fingerprint</span>
+				<UiIcon name="fingerprint" size={20} class="text-slate-500" />
 				<h2 class="font-display text-base font-bold text-slate-900">Cryptographic fingerprint</h2>
 			</div>
 			<p class="mb-4 text-sm text-slate-600">
@@ -272,7 +273,7 @@
 		<!-- Verify -->
 		<section id="verify" class="mt-6 scroll-mt-20 rounded-xl border border-slate-200 bg-white p-6">
 			<div class="mb-4 flex items-center gap-2">
-				<span class="material-symbols-outlined text-[20px] text-slate-500">fact_check</span>
+				<UiIcon name="verify" size={20} class="text-slate-500" />
 				<h2 class="font-display text-base font-bold text-slate-900">Integrity verification</h2>
 			</div>
 			<p class="mb-4 text-sm text-slate-600">
@@ -285,7 +286,7 @@
 		<!-- Compare a file -->
 		<section class="mt-6 rounded-xl border border-slate-200 bg-white p-6">
 			<div class="mb-4 flex items-center gap-2">
-				<span class="material-symbols-outlined text-[20px] text-slate-500">science</span>
+				<UiIcon name="science" size={20} class="text-slate-500" />
 				<h2 class="font-display text-base font-bold text-slate-900">Compare a suspect file</h2>
 			</div>
 			<LocalFileCompare recordedHash={evidence.currentHash} />
@@ -294,7 +295,7 @@
 		<!-- Custody -->
 		<section class="mt-6 rounded-xl border border-slate-200 bg-white p-6">
 			<div class="mb-4 flex items-center gap-2">
-				<span class="material-symbols-outlined text-[20px] text-slate-500">account_tree</span>
+				<UiIcon name="timeline" size={20} class="text-slate-500" />
 				<h2 class="font-display text-base font-bold text-slate-900">Chain of custody</h2>
 			</div>
 			<CustodyTimeline entries={custody} />
@@ -303,7 +304,7 @@
 		<!-- Metadata -->
 		<section class="mt-6 rounded-xl border border-slate-200 bg-white p-6">
 			<div class="mb-4 flex items-center gap-2">
-				<span class="material-symbols-outlined text-[20px] text-slate-500">image_search</span>
+				<UiIcon name="metadata" size={20} class="text-slate-500" />
 				<h2 class="font-display text-base font-bold text-slate-900">Metadata</h2>
 			</div>
 			<MetadataPanel {metadata} />
@@ -312,7 +313,7 @@
 		<!-- Report -->
 		<section class="mt-6 rounded-xl border border-slate-200 bg-white p-6">
 			<div class="mb-4 flex items-center gap-2">
-				<span class="material-symbols-outlined text-[20px] text-slate-500">description</span>
+				<UiIcon name="report" size={20} class="text-slate-500" />
 				<h2 class="font-display text-base font-bold text-slate-900">Plain-language report</h2>
 			</div>
 			<ReportView {report} />

@@ -1,10 +1,13 @@
 <script lang="ts">
-	const steps = [
+	import UiIcon from '$lib/components/UiIcon.svelte';
+	import type { IconName } from '$lib/components/icons';
+
+	const steps: { icon: IconName; title: string; text: string }[] = [
 		{ icon: 'archive', title: 'Collect', text: 'A file is registered as evidence.' },
 		{ icon: 'fingerprint', title: 'Hash', text: 'A SHA-256 fingerprint is recorded.' },
-		{ icon: 'account_tree', title: 'Track', text: 'Every custody action is logged.' },
-		{ icon: 'verified_user', title: 'Verify', text: 'The file can be checked again.' },
-		{ icon: 'description', title: 'Report', text: 'A plain-language report is produced.' }
+		{ icon: 'timeline', title: 'Track', text: 'Every custody action is logged.' },
+		{ icon: 'verified', title: 'Verify', text: 'The file can be checked again.' },
+		{ icon: 'report', title: 'Report', text: 'A plain-language report is produced.' }
 	];
 
 	const establishes = [
@@ -61,14 +64,14 @@
 					href="/evidence/new"
 					class="inline-flex items-center gap-2 rounded-lg bg-slate-900 px-5 py-2.5 text-sm font-semibold text-white shadow-sm transition-colors hover:bg-slate-800"
 				>
-					<span class="material-symbols-outlined text-[18px]">upload_file</span>
+					<UiIcon name="upload" size={18} />
 					Register Evidence
 				</a>
 				<a
 					href="/evidence"
 					class="inline-flex items-center gap-2 rounded-lg border border-slate-300 bg-white px-5 py-2.5 text-sm font-semibold text-slate-800 transition-colors hover:bg-slate-50"
 				>
-					<span class="material-symbols-outlined text-[18px] text-slate-500">inventory_2</span>
+					<UiIcon name="evidence" size={18} class="text-slate-500" />
 					View Evidence
 				</a>
 			</div>
@@ -88,7 +91,7 @@
 						<div
 							class="flex h-9 w-9 items-center justify-center rounded-lg bg-slate-900 text-white"
 						>
-							<span class="material-symbols-outlined text-[20px]">{step.icon}</span>
+							<UiIcon name={step.icon} size={20} />
 						</div>
 						<span class="font-mono text-xs font-semibold text-slate-400">0{i + 1}</span>
 					</div>
@@ -98,7 +101,7 @@
 						<span
 							class="absolute top-1/2 -right-3 z-10 hidden -translate-y-1/2 rounded-full border border-slate-200 bg-white p-0.5 text-slate-400 lg:block"
 						>
-							<span class="material-symbols-outlined text-[16px]">chevron_right</span>
+							<UiIcon name="chevronRight" size={16} />
 						</span>
 					{/if}
 				</div>
@@ -110,7 +113,7 @@
 	<section class="grid grid-cols-1 gap-6 pb-14 lg:grid-cols-2">
 		<div class="rounded-xl border border-slate-200 bg-white p-6">
 			<div class="mb-4 flex items-center gap-2">
-				<span class="material-symbols-outlined text-[20px] text-emerald-600">verified_user</span>
+				<UiIcon name="verified" size={20} class="text-emerald-600" />
 				<h2 class="font-display text-base font-bold text-slate-900">What ChainGuard establishes</h2>
 			</div>
 			<ul class="space-y-4">
@@ -119,7 +122,7 @@
 						<span
 							class="mt-0.5 flex h-5 w-5 shrink-0 items-center justify-center rounded-full bg-emerald-50 text-emerald-600"
 						>
-							<span class="material-symbols-outlined text-[14px]">check</span>
+							<UiIcon name="check" size={14} />
 						</span>
 						<div>
 							<p class="text-sm font-semibold text-slate-900">{item.title}</p>
@@ -131,7 +134,7 @@
 		</div>
 		<div class="rounded-xl border border-amber-200 bg-amber-50 p-6">
 			<div class="mb-4 flex items-center gap-2">
-				<span class="material-symbols-outlined text-[20px] text-amber-600">info</span>
+				<UiIcon name="info" size={20} class="text-amber-600" />
 				<h2 class="font-display text-base font-bold text-amber-900">Important limitations</h2>
 			</div>
 			<p class="mb-3 text-sm text-amber-800">
@@ -141,9 +144,7 @@
 			<ul class="space-y-2">
 				{#each limitations as limitation}
 					<li class="flex gap-2 text-sm text-amber-900">
-						<span class="material-symbols-outlined text-[16px] text-amber-500"
-							>do_not_disturb_on</span
-						>
+						<UiIcon name="doNotDisturb" size={16} class="text-amber-500" />
 						{limitation}
 					</li>
 				{/each}
@@ -165,14 +166,14 @@
 				href="/evidence/new"
 				class="inline-flex items-center gap-2 rounded-lg bg-blue-600 px-5 py-2.5 text-sm font-semibold text-white transition-colors hover:bg-blue-700"
 			>
-				<span class="material-symbols-outlined text-[18px]">add</span>
+				<UiIcon name="add" size={18} />
 				Register Evidence
 			</a>
 			<a
 				href="/evidence"
 				class="inline-flex items-center gap-2 rounded-lg border border-slate-600 px-5 py-2.5 text-sm font-semibold text-slate-200 transition-colors hover:bg-slate-800"
 			>
-				<span class="material-symbols-outlined text-[18px]">inventory_2</span>
+				<UiIcon name="evidence" size={18} />
 				View Registered Evidence
 			</a>
 		</div>

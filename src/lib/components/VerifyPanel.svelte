@@ -3,6 +3,7 @@
 	import type { VerifyResult } from '$lib/api/types';
 	import { humanizeIntegrityResult } from '$lib/api/format';
 	import HashValue from './HashValue.svelte';
+	import UiIcon from './UiIcon.svelte';
 
 	type Props = {
 		evidenceId: string;
@@ -70,7 +71,7 @@
 		<div
 			class="mb-4 flex items-start gap-2 rounded-md border border-rose-200 bg-rose-50 p-3 text-sm text-rose-700"
 		>
-			<span class="material-symbols-outlined mt-0.5 text-[16px]">error</span>
+			<UiIcon name="alert" size={16} class="mt-0.5" />
 			<span>{error}</span>
 		</div>
 	{/if}
@@ -94,10 +95,10 @@
 				class="inline-flex h-10 shrink-0 items-center justify-center gap-2 rounded-lg bg-blue-600 px-5 text-sm font-semibold text-white transition-colors hover:bg-blue-700 disabled:cursor-not-allowed disabled:opacity-60"
 			>
 				{#if verifying}
-					<span class="material-symbols-outlined animate-spin text-[18px]">progress_activity</span>
+					<UiIcon name="spinner" size={18} class="animate-spin" />
 					Checking…
 				{:else}
-					<span class="material-symbols-outlined text-[18px]">fact_check</span>
+					<UiIcon name="verify" size={18} />
 					Verify Integrity
 				{/if}
 			</button>
@@ -117,11 +118,9 @@
 									: 'border-slate-200 bg-slate-50 text-slate-400'}"
 						>
 							{#if done}
-								<span class="material-symbols-outlined text-[14px]">check</span>
+								<UiIcon name="check" size={14} />
 							{:else if active}
-								<span class="material-symbols-outlined animate-spin text-[14px]"
-									>progress_activity</span
-								>
+								<UiIcon name="spinner" size={14} class="animate-spin" />
 							{:else}
 								<span class="text-[11px]">{i + 1}</span>
 							{/if}
@@ -148,9 +147,11 @@
 					: 'border-rose-200 border-l-rose-500 bg-rose-50'}"
 			>
 				<div class="flex items-center gap-2">
-					<span class="material-symbols-outlined {matched ? 'text-emerald-600' : 'text-rose-600'}"
-						>{matched ? 'verified_user' : 'warning'}</span
-					>
+					<UiIcon
+						name={matched ? 'verified' : 'warning'}
+						size={20}
+						class={matched ? 'text-emerald-600' : 'text-rose-600'}
+					/>
 					<h3
 						class="font-display text-lg font-bold {matched ? 'text-emerald-900' : 'text-rose-900'}"
 					>
@@ -172,7 +173,7 @@
 				<p
 					class="mt-4 flex items-start gap-2 rounded-md border border-slate-200 bg-white/70 p-3 text-sm text-slate-700"
 				>
-					<span class="material-symbols-outlined mt-0.5 text-[16px]">info</span>
+					<UiIcon name="info" size={16} class="mt-0.5" />
 					<span>
 						This confirms whether the stored file matches the evidence registered in ChainGuard. It
 						does not judge whether the depicted event happened or whether the content is truthful.

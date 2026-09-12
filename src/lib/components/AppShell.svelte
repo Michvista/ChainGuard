@@ -1,11 +1,13 @@
 <script lang="ts">
 	import { page } from '$app/state';
 	import ApiStatusPill from './ApiStatusPill.svelte';
+	import UiIcon from './UiIcon.svelte';
+	import type { IconName } from './icons';
 
-	const links = [
+	const links: { href: string; label: string; icon: IconName }[] = [
 		{ href: '/', label: 'Overview', icon: 'home' },
-		{ href: '/evidence', label: 'Evidence', icon: 'inventory_2' },
-		{ href: '/evidence/new', label: 'Register Evidence', icon: 'upload_file' }
+		{ href: '/evidence', label: 'Evidence', icon: 'evidence' },
+		{ href: '/evidence/new', label: 'Register Evidence', icon: 'upload' }
 	];
 
 	let { children } = $props();
@@ -24,7 +26,7 @@
 				<div
 					class="flex h-9 w-9 items-center justify-center rounded-lg bg-slate-900 text-white shadow-sm"
 				>
-					<span class="material-symbols-outlined text-[20px]">shield_lock</span>
+					<UiIcon name="shield" size={20} />
 				</div>
 				<div class="flex flex-col leading-tight">
 					<span class="text-base font-bold tracking-tight text-slate-900">ChainGuard</span>
@@ -43,7 +45,7 @@
 							? 'bg-slate-900 text-white'
 							: 'text-slate-600 hover:bg-slate-100 hover:text-slate-900'}"
 					>
-						<span class="material-symbols-outlined text-[18px]">{link.icon}</span>
+						<UiIcon name={link.icon} size={18} />
 						{link.label}
 					</a>
 				{/each}

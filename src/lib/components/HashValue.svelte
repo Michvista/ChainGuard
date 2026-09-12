@@ -1,4 +1,6 @@
 <script lang="ts">
+	import UiIcon from './UiIcon.svelte';
+
 	type Props = {
 		value: string;
 		label?: string;
@@ -57,9 +59,11 @@
 					? 'text-slate-400 hover:text-white'
 					: 'text-slate-500 hover:text-slate-900'}"
 			>
-				<span class="material-symbols-outlined text-[14px]"
-					>{copied ? 'check' : 'content_copy'}</span
-				>
+				<UiIcon
+					name={copied ? 'check' : 'copy'}
+					size={14}
+					class={dark ? 'text-slate-400' : 'text-slate-500'}
+				/>
 				{copied ? 'Copied' : 'Copy'}
 			</button>
 		{/if}

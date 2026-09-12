@@ -3,6 +3,7 @@
 	import { formatBytes } from '$lib/api/format';
 	import FilePicker from './FilePicker.svelte';
 	import HashValue from './HashValue.svelte';
+	import UiIcon from './UiIcon.svelte';
 
 	type Props = {
 		recordedHash: string;
@@ -67,10 +68,10 @@
 			class="inline-flex h-10 shrink-0 items-center justify-center gap-2 rounded-lg bg-slate-900 px-5 text-sm font-semibold text-white transition-colors hover:bg-slate-800 disabled:cursor-not-allowed disabled:opacity-50"
 		>
 			{#if comparing}
-				<span class="material-symbols-outlined animate-spin text-[18px]">progress_activity</span>
+				<UiIcon name="spinner" size={18} class="animate-spin" />
 				Hashing…
 			{:else}
-				<span class="material-symbols-outlined text-[18px]">fingerprint</span>
+				<UiIcon name="fingerprint" size={18} />
 				Compute &amp; Compare
 			{/if}
 		</button>
@@ -87,10 +88,11 @@
 				: 'border-rose-200 border-l-rose-500 bg-rose-50'}"
 		>
 			<div class="flex items-center gap-2">
-				<span
-					class="material-symbols-outlined {result.match ? 'text-emerald-600' : 'text-rose-600'}"
-					>{result.match ? 'verified_user' : 'block'}</span
-				>
+				<UiIcon
+					name={result.match ? 'verified' : 'mismatch'}
+					size={20}
+					class={result.match ? 'text-emerald-600' : 'text-rose-600'}
+				/>
 				<h4
 					class="font-display text-base font-bold {result.match
 						? 'text-emerald-900'
@@ -121,7 +123,7 @@
 			<p
 				class="mt-4 flex items-start gap-2 rounded-md border border-slate-200 bg-white/70 p-3 text-sm text-slate-700"
 			>
-				<span class="material-symbols-outlined mt-0.5 text-[16px]">info</span>
+				<UiIcon name="info" size={16} class="mt-0.5" />
 				<span>
 					A mismatch does not mean the file is “fake”. Visually similar copies (such as a screenshot
 					or a re-encoded video) are different digital artifacts and produce different hashes. This

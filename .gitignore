@@ -26,3 +26,5 @@ vite.config.ts.timestamp-*
 TEST_RESULTS.md
 HACKATHON_READINESS.md
 BACKEND_REQUESTS.md
+
+opencode.json 

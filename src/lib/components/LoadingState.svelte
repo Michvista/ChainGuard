@@ -1,4 +1,6 @@
 <script lang="ts">
+	import UiIcon from './UiIcon.svelte';
+
 	type Props = {
 		label?: string;
 	};
@@ -7,8 +9,6 @@
 </script>
 
 <div class="flex flex-col items-center justify-center gap-3 py-12 text-center">
-	<span class="material-symbols-outlined animate-spin text-[28px] text-slate-400"
-		>progress_activity</span
-	>
+	<UiIcon name="spinner" size={28} class="animate-spin text-slate-400" />
 	<p class="text-sm text-slate-600">{label}</p>
 </div>

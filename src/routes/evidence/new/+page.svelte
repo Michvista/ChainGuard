@@ -5,6 +5,7 @@
 	import FilePicker from '$lib/components/FilePicker.svelte';
 	import HashValue from '$lib/components/HashValue.svelte';
 	import StatusBadge from '$lib/components/StatusBadge.svelte';
+	import UiIcon from '$lib/components/UiIcon.svelte';
 
 	const MAX_BYTES = 50 * 1024 * 1024;
 
@@ -80,7 +81,7 @@
 						<div
 							class="flex h-10 w-10 items-center justify-center rounded-lg bg-emerald-50 text-emerald-600"
 						>
-							<span class="material-symbols-outlined text-[22px]">verified_user</span>
+							<UiIcon name="verified" size={22} />
 						</div>
 						<div>
 							<h2 class="font-display text-lg font-bold text-slate-900">
@@ -149,7 +150,7 @@
 					<p
 						class="mt-4 flex items-start gap-2 rounded-md border border-amber-200 bg-amber-50 p-3 text-sm text-amber-800"
 					>
-						<span class="material-symbols-outlined mt-0.5 text-[16px]">info</span>
+						<UiIcon name="info" size={16} class="mt-0.5" />
 						<span>
 							No camera or origin metadata was found in this file. Missing metadata does not by
 							itself prove manipulation — files are frequently stripped, converted, or generated
@@ -166,14 +167,14 @@
 					href={`/evidence/${result.evidence._id}`}
 					class="inline-flex items-center gap-2 rounded-lg bg-slate-900 px-4 py-2 text-sm font-semibold text-white transition-colors hover:bg-slate-800"
 				>
-					<span class="material-symbols-outlined text-[18px]">open_in_new</span>
+					<UiIcon name="openNew" size={18} />
 					Open Evidence
 				</a>
 				<a
 					href={`/evidence/${result.evidence._id}#verify`}
 					class="inline-flex items-center gap-2 rounded-lg border border-slate-300 bg-white px-4 py-2 text-sm font-semibold text-slate-700 transition-colors hover:bg-slate-50"
 				>
-					<span class="material-symbols-outlined text-[18px]">fact_check</span>
+					<UiIcon name="verify" size={18} />
 					Verify Integrity
 				</a>
 				<button
@@ -181,7 +182,7 @@
 					onclick={reset}
 					class="ml-auto inline-flex items-center gap-2 rounded-lg border border-slate-300 bg-white px-4 py-2 text-sm font-semibold text-slate-700 transition-colors hover:bg-slate-50"
 				>
-					<span class="material-symbols-outlined text-[18px]">add</span>
+					<UiIcon name="add" size={18} />
 					Register Another
 				</button>
 			</div>
@@ -211,7 +212,7 @@
 				<div
 					class="mt-4 flex items-start gap-2 rounded-md border border-rose-200 bg-rose-50 p-3 text-sm text-rose-700"
 				>
-					<span class="material-symbols-outlined mt-0.5 text-[16px]">error</span>
+					<UiIcon name="alert" size={16} class="mt-0.5" />
 					<span>{error}</span>
 				</div>
 			{/if}
@@ -229,11 +230,10 @@
 					class="inline-flex items-center justify-center gap-2 rounded-lg bg-slate-900 px-6 py-2.5 text-sm font-semibold text-white shadow-sm transition-colors hover:bg-slate-800 disabled:cursor-not-allowed disabled:opacity-60"
 				>
 					{#if submitting}
-						<span class="material-symbols-outlined animate-spin text-[18px]">progress_activity</span
-						>
+						<UiIcon name="spinner" size={18} class="animate-spin" />
 						Registering…
 					{:else}
-						<span class="material-symbols-outlined text-[18px]">lock</span>
+						<UiIcon name="lock" size={18} />
 						Register Evidence
 					{/if}
 				</button>

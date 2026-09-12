@@ -3,6 +3,7 @@
 	import { formatDateTime } from '$lib/api/format';
 	import EmptyState from './EmptyState.svelte';
 	import StatusBadge from './StatusBadge.svelte';
+	import UiIcon from './UiIcon.svelte';
 
 	type Props = {
 		report?: EvidenceReport | null;
@@ -18,13 +19,13 @@
 		<p class="py-6 text-center text-sm text-slate-500">Preparing report…</p>
 	{:else if error}
 		<EmptyState
-			icon="description"
+			icon="report"
 			title="Report unavailable"
 			text="The plain-language report could not be generated for this item."
 		/>
 	{:else if !report}
 		<EmptyState
-			icon="description"
+			icon="report"
 			title="Report unavailable"
 			text="There is no report for this evidence item."
 		/>
@@ -74,9 +75,7 @@
 						<ul class="space-y-2">
 							{#each report.metadataSummary.notes as note}
 								<li class="flex gap-2 text-sm text-slate-700">
-									<span class="material-symbols-outlined mt-0.5 text-[15px] text-slate-400"
-										>note</span
-									>
+									<UiIcon name="note" size={15} class="mt-0.5 text-slate-400" />
 									{note}
 								</li>
 							{/each}

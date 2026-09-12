@@ -6,6 +6,7 @@
 	import ErrorState from '$lib/components/ErrorState.svelte';
 	import LoadingState from '$lib/components/LoadingState.svelte';
 	import StatusBadge from '$lib/components/StatusBadge.svelte';
+	import UiIcon from '$lib/components/UiIcon.svelte';
 
 	let rows = $state<{ evidence: Evidence; custody: CustodyEntry[] }[]>([]);
 	let loading = $state(true);
@@ -78,7 +79,7 @@
 			href="/evidence/new"
 			class="inline-flex shrink-0 items-center gap-2 self-start rounded-lg bg-slate-900 px-4 py-2 text-sm font-semibold text-white shadow-sm transition-colors hover:bg-slate-800 sm:self-auto"
 		>
-			<span class="material-symbols-outlined text-[18px]">add</span>
+			<UiIcon name="add" size={18} />
 			Register Evidence
 		</a>
 	</div>
@@ -90,7 +91,7 @@
 			<ErrorState title="Could not load evidence" detail={error} retry={loadError} />
 		{:else if rows.length === 0}
 			<EmptyState
-				icon="inventory_2"
+				icon="evidence"
 				title="No evidence registered yet"
 				text="Register a file to create its cryptographic fingerprint and custody record."
 			>
@@ -98,7 +99,7 @@
 					href="/evidence/new"
 					class="mt-2 inline-flex items-center gap-2 rounded-lg bg-slate-900 px-4 py-2 text-sm font-semibold text-white transition-colors hover:bg-slate-800"
 				>
-					<span class="material-symbols-outlined text-[18px]">upload_file</span>
+					<UiIcon name="upload" size={18} />
 					Register Evidence
 				</a>
 			</EmptyState>
@@ -109,10 +110,11 @@
 					{rows.length === 1 ? 'item' : 'items'} registered
 				</p>
 				<div class="relative w-full sm:w-72">
-					<span
-						class="material-symbols-outlined pointer-events-none absolute top-1/2 left-3 -translate-y-1/2 text-[18px] text-slate-400"
-						>search</span
-					>
+					<UiIcon
+						name="search"
+						size={18}
+						class="pointer-events-none absolute top-1/2 left-3 -translate-y-1/2 text-slate-400"
+					/>
 					<input
 						type="search"
 						bind:value={query}
@@ -177,7 +179,7 @@
 										<div
 											class="flex h-8 w-8 shrink-0 items-center justify-center rounded-lg border border-slate-200 bg-slate-50 text-slate-500"
 										>
-											<span class="material-symbols-outlined text-[18px]">description</span>
+											<UiIcon name="file" size={18} />
 										</div>
 										<div class="min-w-0">
 											<p
@@ -226,7 +228,7 @@
 										class="inline-flex items-center gap-1 rounded-md border border-slate-300 bg-white px-3 py-1.5 text-xs font-semibold text-slate-700 transition-colors hover:bg-slate-50"
 									>
 										Open
-										<span class="material-symbols-outlined text-[15px]">arrow_forward</span>
+										<UiIcon name="arrowForward" size={15} />
 									</a>
 								</td>
 							</tr>
