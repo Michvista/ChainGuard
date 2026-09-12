@@ -62,7 +62,9 @@ that the underlying event depicted in the media actually happened. It does not p
 original evidence was truthful. It does not independently prove who created the evidence. It
 does not independently establish legal admissibility. It does not automatically detect
 deepfakes. It does not reconstruct an event. It does not replace qualified forensic
-examination.
+examination. A failed comparison reveals only that two files differ; it does not say what
+changed, where it changed, or how. Determining the nature of a change requires a specialized
+forensic examination of both files.
 
 These limitations matter because integrity is only one property of evidence. An unchanged file
 can still depict something that did not happen, and a changed file can still be an honest
@@ -445,6 +447,8 @@ Realistic future work, clearly not yet implemented:
 - stronger audit verification
 - case management
 - organization-level access controls
+- change-location and difference analysis for media (deliberately out of scope for integrity
+  verification; this belongs to specialized forensic examination)
 
 ## 22. C2PA / provenance
 
