@@ -7,6 +7,7 @@ import {
 	ArrowRight01Icon,
 	ArrowUpRight01Icon,
 	BadgeCheckIcon,
+	Cancel01Icon,
 	CancelCircleIcon,
 	CheckIcon,
 	ChevronRightIcon,
@@ -29,6 +30,7 @@ import {
 	LegalDocument01Icon,
 	Loading01Icon,
 	LockKeyIcon,
+	Menu01Icon,
 	NoteIcon,
 	RefreshIcon,
 	RepeatIcon,
@@ -76,6 +78,8 @@ export type IconName =
 	| 'lock'
 	| 'science'
 	| 'hardDrive'
+	| 'menu'
+	| 'close'
 	| 'doNotDisturb'
 	| 'archive'
 	| 'swap';
@@ -116,6 +120,8 @@ export const icons: Record<IconName, IconSvgElement> = {
 	lock: LockKeyIcon,
 	science: TestTubeIcon,
 	hardDrive: HardDriveIcon,
+	menu: Menu01Icon,
+	close: Cancel01Icon,
 	doNotDisturb: CancelCircleIcon,
 	archive: Archive01Icon,
 	swap: RepeatIcon

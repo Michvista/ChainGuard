@@ -12,6 +12,8 @@
 
 	let { children } = $props();
 
+	let menuOpen = $state(false);
+
 	function isActive(href: string): boolean {
 		const path = page.url.pathname;
 		if (href === '/') return path === '/';
@@ -30,7 +32,8 @@
 				</div>
 				<div class="flex flex-col leading-tight">
 					<span class="text-base font-bold tracking-tight text-slate-900">ChainGuard</span>
-					<span class="text-[10px] font-semibold tracking-widest text-slate-500 uppercase"
+					<span
+						class="hidden text-[10px] font-semibold tracking-widest text-slate-500 uppercase sm:block"
 						>Digital Evidence Integrity</span
 					>
 				</div>
@@ -52,9 +55,39 @@
 			</nav>
 		</div>
 		<div class="flex shrink-0 items-center gap-3">
+			<button
+				type="button"
+				aria-label="Toggle navigation"
+				aria-expanded={menuOpen}
+				onclick={() => (menuOpen = !menuOpen)}
+				class="inline-flex h-9 w-9 items-center justify-center rounded-lg border border-slate-200 bg-white text-slate-600 hover:bg-slate-50 md:hidden"
+			>
+				<UiIcon name={menuOpen ? 'close' : 'menu'} size={18} />
+			</button>
 			<ApiStatusPill />
 		</div>
 	</div>
+
+	{#if menuOpen}
+		<div class="border-t border-slate-200 bg-white md:hidden">
+			<nav class="mx-auto flex max-w-7xl flex-col gap-1 px-4 py-3 sm:px-6">
+				{#each links as link}
+					<a
+						href={link.href}
+						onclick={() => (menuOpen = false)}
+						class="flex items-center gap-2 rounded-md px-3 py-2 text-sm font-medium {isActive(
+							link.href
+						)
+							? 'bg-slate-900 text-white'
+							: 'text-slate-600 hover:bg-slate-100 hover:text-slate-900'}"
+					>
+						<UiIcon name={link.icon} size={18} />
+						{link.label}
+					</a>
+				{/each}
+			</nav>
+		</div>
+	{/if}
 </header>
 
 <main class="flex-1">

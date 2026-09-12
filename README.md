@@ -373,8 +373,27 @@ npm run build
 npm run preview
 ```
 
-The project uses `@sveltejs/adapter-auto`. To deploy to a specific platform, install the
-corresponding adapter (for example Vercel or Netlify) and update `svelte.config.js` if needed.
+The project uses `@sveltejs/adapter-auto` with `@sveltejs/adapter-vercel` installed, so it
+deploys to Vercel automatically. Local `npm run build` prints a "could not detect a supported
+production environment" notice because no platform is detected locally; this is expected and
+harmless. On Vercel, the platform is detected and the Vercel adapter is used.
+
+### Deploying to Vercel
+
+1. Push this repository to GitHub.
+2. Go to https://vercel.com/new and import the `ChainGuard` repository.
+3. Vercel detects SvelteKit automatically. Set the build command to `npm run build` and output
+   to `build` (the defaults are usually correct).
+4. Add the environment variable `PUBLIC_CHAINGUARD_API_BASE_URL` set to
+   `https://chainguard.up.railway.app` (the value in `.env` is already the default, but set it
+   explicitly in Vercel).
+5. Deploy. The frontend talks to the deployed evidence API via HTTPS with CORS enabled.
+
+Note for Windows developers: running `npm run build` with `@sveltejs/adapter-vercel`
+configured directly can fail with an `EPERM` symlink error unless Windows Developer Mode is
+enabled. Keeping `adapter-auto` avoids that: local builds use no platform adapter, and Vercel
+uses the installed Vercel adapter.
+
 The deployed evidence API is available at `https://chainguard.up.railway.app` with interactive
 docs at `https://chainguard.up.railway.app/api-docs`.
 
