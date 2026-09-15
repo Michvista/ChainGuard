@@ -1,6 +1,6 @@
 <script lang="ts">
 	import { page } from '$app/state';
-	import { api, ApiError } from '$lib/api/client';
+	import { api, ApiError, withTimeout } from '$lib/api/client';
 	import type {
 		CustodyEntry,
 		EvidenceDetail,
@@ -42,7 +42,11 @@
 			// Render the header/overview as soon as the core record arrives, then fill
 			// in the supporting data. Each supporting call is guarded by a timeout and
 			// a catch, so nothing can leave the page stuck on a loading state.
-			evidence = await api.getEvidence(evidenceId);
+			evidence = await withTimeout(
+				api.getEvidence(evidenceId),
+				15_000,
+				'Loading this evidence item timed out.'
+			);
 			loading = false;
 			const [cust, meta, rep] = await Promise.all([
 				api.getCustody(evidenceId).catch(() => [] as CustodyEntry[]),

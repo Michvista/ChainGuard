@@ -36,7 +36,24 @@ export class ApiError extends Error {
 	}
 }
 
-const REQUEST_TIMEOUT_MS = 20_000;
+const REQUEST_TIMEOUT_MS = 15_000;
+
+/** Guarantees a promise settles within `ms`, independent of the underlying fetch. */
+export function withTimeout<T>(promise: Promise<T>, ms: number, message: string): Promise<T> {
+	return new Promise<T>((resolve, reject) => {
+		const timer = setTimeout(() => reject(new Error(message)), ms);
+		promise.then(
+			(value) => {
+				clearTimeout(timer);
+				resolve(value);
+			},
+			(error) => {
+				clearTimeout(timer);
+				reject(error);
+			}
+		);
+	});
+}
 
 async function request<T>(path: string, init?: RequestInit): Promise<T> {
 	const controller = new AbortController();

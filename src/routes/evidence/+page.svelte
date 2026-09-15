@@ -1,5 +1,5 @@
 <script lang="ts">
-	import { api } from '$lib/api/client';
+	import { api, withTimeout } from '$lib/api/client';
 	import type { CustodyEntry, Evidence } from '$lib/api/types';
 	import { actionLabel, formatBytes, formatDateTime, kindLabel, shortHash } from '$lib/api/format';
 	import EmptyState from '$lib/components/EmptyState.svelte';
@@ -17,7 +17,11 @@
 		loading = true;
 		error = '';
 		try {
-			const list = await api.listEvidence();
+			const list = await withTimeout(
+				api.listEvidence(),
+				15_000,
+				'Loading the evidence list timed out.'
+			);
 			// Render the list immediately; enrich custody per item independently so a
 			// slow or failed custody request can never block the whole page.
 			rows = list.map((evidence) => ({ evidence, custody: [] }));
