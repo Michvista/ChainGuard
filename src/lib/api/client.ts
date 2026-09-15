@@ -36,15 +36,28 @@ export class ApiError extends Error {
 	}
 }
 
+const REQUEST_TIMEOUT_MS = 20_000;
+
 async function request<T>(path: string, init?: RequestInit): Promise<T> {
+	const controller = new AbortController();
+	const timer = setTimeout(() => controller.abort(), REQUEST_TIMEOUT_MS);
+
 	let response: Response;
 	try {
-		response = await fetch(`${baseUrl()}${path}`, init);
-	} catch {
+		response = await fetch(`${baseUrl()}${path}`, { ...init, signal: controller.signal });
+	} catch (err) {
+		if (err instanceof DOMException && err.name === 'AbortError') {
+			throw new ApiError(
+				`The ChainGuard API did not respond within ${REQUEST_TIMEOUT_MS / 1000} seconds.`,
+				0
+			);
+		}
 		throw new ApiError(
 			'Network error: could not reach the ChainGuard evidence API. Check your connection or the API base URL.',
 			0
 		);
+	} finally {
+		clearTimeout(timer);
 	}
 
 	const text = await response.text();

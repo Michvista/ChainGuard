@@ -39,13 +39,16 @@
 		metadata = null;
 		report = null;
 		try {
-			const [ev, cust, meta, rep] = await Promise.all([
-				api.getEvidence(evidenceId),
+			// Render the header/overview as soon as the core record arrives, then fill
+			// in the supporting data. Each supporting call is guarded by a timeout and
+			// a catch, so nothing can leave the page stuck on a loading state.
+			evidence = await api.getEvidence(evidenceId);
+			loading = false;
+			const [cust, meta, rep] = await Promise.all([
 				api.getCustody(evidenceId).catch(() => [] as CustodyEntry[]),
 				api.getMetadata(evidenceId).catch(() => null as MetadataRecord | null),
 				api.getReport(evidenceId).catch(() => null as EvidenceReport | null)
 			]);
-			evidence = ev;
 			custody = cust;
 			metadata = meta;
 			report = rep;

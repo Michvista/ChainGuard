@@ -18,16 +18,19 @@
 		error = '';
 		try {
 			const list = await api.listEvidence();
-			const withCustody = await Promise.all(
-				list.map(async (evidence) => {
-					try {
-						return { evidence, custody: await api.getCustody(evidence._id) };
-					} catch {
-						return { evidence, custody: [] };
-					}
-				})
-			);
-			rows = withCustody;
+			// Render the list immediately; enrich custody per item independently so a
+			// slow or failed custody request can never block the whole page.
+			rows = list.map((evidence) => ({ evidence, custody: [] }));
+			for (const evidence of list) {
+				api
+					.getCustody(evidence._id)
+					.then((custody) => {
+						rows = rows.map((r) => (r.evidence._id === evidence._id ? { ...r, custody } : r));
+					})
+					.catch(() => {
+						// Keep the empty custody array for this item.
+					});
+			}
 		} catch (e) {
 			error = e instanceof Error ? e.message : 'Failed to load evidence.';
 		} finally {
