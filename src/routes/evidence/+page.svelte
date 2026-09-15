@@ -124,7 +124,7 @@
 				</div>
 			</div>
 
-			<div class="overflow-x-auto rounded-xl border border-slate-200 bg-white">
+			<div class="hidden overflow-x-auto rounded-xl border border-slate-200 bg-white sm:block">
 				<table class="w-full min-w-[820px] text-left text-sm">
 					<thead>
 						<tr class="border-b border-slate-200 bg-slate-50">
@@ -235,12 +235,79 @@
 						{/each}
 					</tbody>
 				</table>
-				{#if filtered.length === 0 && rows.length > 0}
-					<p class="px-4 py-8 text-center text-sm text-slate-500">
-						No evidence matches “{query}”.
-					</p>
-				{/if}
 			</div>
+			{#if filtered.length === 0 && rows.length > 0}
+				<p
+					class="rounded-xl border border-slate-200 bg-white px-4 py-8 text-center text-sm text-slate-500"
+				>
+					No evidence matches “{query}”.
+				</p>
+			{:else}
+				<div class="flex flex-col gap-3 sm:hidden">
+					{#each filtered as row}
+						{@const last = lastEvent(row.custody)}
+						<div class="rounded-xl border border-slate-200 bg-white p-4">
+							<div class="flex items-start justify-between gap-3">
+								<div class="flex min-w-0 items-center gap-3">
+									<div
+										class="flex h-9 w-9 shrink-0 items-center justify-center rounded-lg border border-slate-200 bg-slate-50 text-slate-500"
+									>
+										<UiIcon name="file" size={18} />
+									</div>
+									<div class="min-w-0">
+										<p class="truncate font-medium text-slate-900" title={row.evidence.fileName}>
+											{row.evidence.fileName}
+										</p>
+										<p class="font-mono text-[11px] text-slate-400">id {row.evidence._id}</p>
+									</div>
+								</div>
+								<a
+									href={`/evidence/${row.evidence._id}`}
+									class="inline-flex shrink-0 items-center gap-1 rounded-md border border-slate-300 bg-white px-3 py-1.5 text-xs font-semibold text-slate-700 hover:bg-slate-50"
+								>
+									Open
+									<UiIcon name="arrowForward" size={14} />
+								</a>
+							</div>
+							<div class="mt-3 grid grid-cols-2 gap-x-3 gap-y-2 text-sm">
+								<div>
+									<p class="text-[11px] tracking-wider text-slate-500 uppercase">Type</p>
+									<p class="font-mono text-xs text-slate-700">{kindLabel(row.evidence.mimeType)}</p>
+								</div>
+								<div>
+									<p class="text-[11px] tracking-wider text-slate-500 uppercase">Size</p>
+									<p class="font-mono text-xs text-slate-700">
+										{formatBytes(row.evidence.sizeBytes)}
+									</p>
+								</div>
+								<div>
+									<p class="text-[11px] tracking-wider text-slate-500 uppercase">Registered by</p>
+									<p class="text-xs text-slate-700">{intakeActor(row.custody)}</p>
+								</div>
+								<div>
+									<p class="text-[11px] tracking-wider text-slate-500 uppercase">Registered</p>
+									<p class="font-mono text-xs text-slate-600">
+										{formatDateTime(row.evidence.createdAt)}
+									</p>
+								</div>
+							</div>
+							<p
+								class="mt-3 truncate font-mono text-[11px] text-slate-500"
+								title={row.evidence.originalHash}
+							>
+								SHA-256 {shortHash(row.evidence.originalHash)}
+							</p>
+							<div class="mt-2 border-t border-slate-100 pt-2">
+								{#if last}
+									<StatusBadge tone="neutral" label={actionLabel(last.action)} />
+								{:else}
+									<span class="text-xs text-slate-400">No custody events</span>
+								{/if}
+							</div>
+						</div>
+					{/each}
+				</div>
+			{/if}
 		{/if}
 	</div>
 </div>

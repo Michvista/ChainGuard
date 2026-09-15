@@ -79,7 +79,6 @@ between "this file has not changed" and "this content is true."
 - Evidence detail view
 - Integrity verification with a recorded verification step
 - Chain-of-custody timeline
-- Offline custody queue infrastructure (local, optional)
 - Metadata extraction and observation flags
 - Plain-language evidence reports
 - Cloud object storage for registered files
@@ -158,9 +157,9 @@ records actions associated with each evidence item. Each custody entry can inclu
 - an offline marker where supported
 
 The current backend records an INTAKE entry at registration and a VERIFY entry for every
-verification attempt. The platform also provides infrastructure for offline custody entries
-(queued locally and synced later), although the remote sync endpoint currently has a backend
-issue (see `BACKEND_REQUESTS.md`).
+verification attempt. The remote `POST /custody/sync` endpoint for offline entries currently
+has a backend issue (see `BACKEND_REQUESTS.md`), so offline sync is not usable in this
+prototype.
 
 Chronological documentation matters because it makes handling auditable. This prototype does
 not claim to provide full legal chain-of-custody compliance.
@@ -305,8 +304,8 @@ never as a claim that the content is fake.
 
 ## 14. Architecture
 
-The frontend is a SvelteKit application that talks to a separate evidence API. The local
-TypeORM/Postgres layer is optional and only supports an offline custody queue.
+The frontend is a SvelteKit application that talks to a separate evidence API. There is no
+local database layer; the remote API is the only source of evidence data.
 
 ```
 +-------------------------------------------+
@@ -330,22 +329,13 @@ TypeORM/Postgres layer is optional and only supports an offline custody queue.
 +-------------------------------------------+
 ```
 
-Optional local layer (not required for the core product):
-
-```
-SvelteKit server -> TypeORM -> PostgreSQL
-  /api/custody-queue (offline queue endpoints)
-```
-
 ## 15. Technology stack
 
 - Frontend framework: SvelteKit 2 with Svelte 5 (runes)
 - Language: TypeScript
 - Styling: Tailwind CSS v4
 - Build tool: Vite
-- UI icons: Material Symbols (webfont)
-- ORM (optional local layer): TypeORM with `pg`
-- Database (optional): PostgreSQL
+- UI icons: HugeIcons (Svelte package, free Stroke Rounded set)
 - Testing: Vitest
 - Formatter: Prettier with Svelte and Tailwind plugins
 - Backend: separate deployed Express-style API (MongoDB + Cloudflare R2), documented in OpenAPI
@@ -404,11 +394,10 @@ committed. See the environment variables section below.
 
 ## 17. Environment variables
 
-| Variable                         | Purpose                                                                                              | Required       |
-| -------------------------------- | ---------------------------------------------------------------------------------------------------- | -------------- |
-| `PUBLIC_CHAINGUARD_API_BASE_URL` | Base URL of the evidence API. Safe to expose in the browser. Defaults to the deployed backend.       | No             |
-| `DATABASE_URL`                   | Optional Postgres connection for the local offline custody queue. The core product does not need it. | No             |
-| `ORIGIN`                         | Origin used by SvelteKit in production environments.                                                 | For production |
+| Variable                         | Purpose                                                                                        | Required       |
+| -------------------------------- | ---------------------------------------------------------------------------------------------- | -------------- |
+| `PUBLIC_CHAINGUARD_API_BASE_URL` | Base URL of the evidence API. Safe to expose in the browser. Defaults to the deployed backend. | No             |
+| `ORIGIN`                         | Origin used by SvelteKit in production environments.                                           | For production |
 
 Never put backend secrets into `PUBLIC_` variables. The frontend only knows the public API base
 URL.
@@ -479,12 +468,11 @@ present (`c2paPresent`), and future work could add real C2PA validation.
 ## 23. Project status
 
 - Implemented: evidence intake, SHA-256 fingerprinting, evidence listing and detail, integrity
-  verification, custody timeline, metadata panel, plain-language report, local compare tool,
-  optional TypeORM offline queue.
+  verification, custody timeline, metadata panel, plain-language report, local compare tool.
 - Tested: unit tests for hashing and formatting helpers; live API contract checks for intake,
   list, detail, verify, custody, metadata, report, and error paths.
-- Partially implemented: offline custody synchronization (frontend client exists, backend sync
-  endpoint currently broken), browser end-to-end automation.
+- Partially implemented: offline custody synchronization (backend sync endpoint currently
+  broken), browser end-to-end automation.
 - Planned: automated end-to-end browser tests, verified mismatch through the server verify
   endpoint once the backend exposes a safe way to demonstrate it.
 

@@ -17,10 +17,7 @@
 	},
 	"dependencies": {
 		"@hugeicons/core-free-icons": "^4.3.2",
-		"@hugeicons/svelte": "^1.1.5",
-		"pg": "^8.23.0",
-		"reflect-metadata": "^0.2.2",
-		"typeorm": "^1.1.1"
+		"@hugeicons/svelte": "^1.1.5"
 	},
 	"devDependencies": {
 		"@sveltejs/adapter-auto": "^7.0.1",
@@ -31,7 +28,6 @@
 		"@tailwindcss/typography": "^0.5.19",
 		"@tailwindcss/vite": "^4.3.0",
 		"@types/node": "^20",
-		"@types/pg": "^8.23.1",
 		"prettier": "^3.8.3",
 		"prettier-plugin-svelte": "^4.1.0",
 		"prettier-plugin-tailwindcss": "^0.8.0",

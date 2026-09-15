@@ -21,7 +21,7 @@
 </script>
 
 <span
-	class="inline-flex items-center gap-2 rounded-full border px-2.5 py-1 text-xs font-medium {status ===
+	class="inline-flex items-center gap-2 rounded-full border px-2 py-1 text-xs font-medium sm:px-2.5 {status ===
 	'online'
 		? 'border-emerald-200 bg-emerald-50 text-emerald-700'
 		: status === 'offline'
@@ -30,12 +30,12 @@
 >
 	{#if status === 'online'}
 		<span class="h-2 w-2 rounded-full bg-emerald-500"></span>
-		<span>Evidence API online</span>
+		<span class="hidden sm:inline">Evidence API online</span>
 	{:else if status === 'offline'}
 		<span class="h-2 w-2 rounded-full bg-rose-500"></span>
-		<span>Evidence API unreachable</span>
+		<span class="hidden sm:inline">Evidence API unreachable</span>
 	{:else}
 		<span class="h-2 w-2 animate-pulse rounded-full bg-amber-500"></span>
-		<span>Checking API…</span>
+		<span class="hidden sm:inline">Checking API…</span>
 	{/if}
 </span>
