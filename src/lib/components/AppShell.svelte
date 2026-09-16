@@ -1,6 +1,5 @@
 <script lang="ts">
 	import { page } from '$app/state';
-	import ApiStatusPill from './ApiStatusPill.svelte';
 	import UiIcon from './UiIcon.svelte';
 	import type { IconName } from './icons';
 
@@ -64,7 +63,6 @@
 			>
 				<UiIcon name={menuOpen ? 'close' : 'menu'} size={18} />
 			</button>
-			<ApiStatusPill />
 		</div>
 	</div>
 
