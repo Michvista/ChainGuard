@@ -60,6 +60,10 @@
 		const first = entry.find((e) => e.action === 'INTAKE');
 		return first?.actor ?? entry[0]?.actor ?? '—';
 	}
+
+	$effect(() => {
+		load();
+	});
 </script>
 
 <svelte:head><title>Evidence — ChainGuard</title></svelte:head>
